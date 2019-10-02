@@ -6,15 +6,12 @@ import Coupons from "../screens/Coupons/Coupons";
 import Categories from "../screens/Categories/Categories";
 import More from "../screens/More/More";
 import {createStackNavigator, NavigationStackOptions} from "react-navigation-stack";
-import {Text} from "react-native";
 import ProfileButton from "../Components/ProfileButton";
 import CapturedLbs from "../Components/CapturedLbs";
 import AppStyles from "../../theme/styles/AppStyles";
 import Colors from "../../theme/variables/Colors";
-import FontelloIcon from "../../theme/components/Icon/FontelloIcon";
 import TabBarIcon from "../Components/TabBarIcon";
 import AppTitle from "../Components/AppTitle";
-
 
 const defaultNavigationOptions: NavigationStackOptions = {
     headerTitle: <AppTitle />,
@@ -24,26 +21,13 @@ const defaultNavigationOptions: NavigationStackOptions = {
     headerLeftContainerStyle: AppStyles.headerLeftContainer,
     headerRightContainerStyle: AppStyles.headerRightContainer
 };
-
 const defaultStackConfig = {
     defaultNavigationOptions
-};
-
-const tabsConfig = {
-    initialRouteName: 'Coupons',
-    tabBarOptions: {
-        activeTintColor: Colors.primary,
-        inactiveTintColor: Colors.light,
-        style: {
-            backgroundColor: Colors.secondary
-        }
-    }
 };
 
 const FavoriteStack = createStackNavigator({
     Favorites: Favorites
 }, defaultStackConfig);
-
 FavoriteStack.navigationOptions = () => {
     return {
         tabBarIcon: ({ focused }) => (
@@ -58,7 +42,6 @@ FavoriteStack.navigationOptions = () => {
 const FeaturedStack = createStackNavigator({
     Featured: Featured
 }, defaultStackConfig);
-
 FeaturedStack.navigationOptions = () => {
     return {
         tabBarIcon: ({ focused }) => (
@@ -73,7 +56,6 @@ FeaturedStack.navigationOptions = () => {
 const CouponStack = createStackNavigator({
     Coupons: Coupons
 }, defaultStackConfig);
-
 CouponStack.navigationOptions = () => {
     return {
         tabBarIcon: ({ focused }) => (
@@ -89,7 +71,6 @@ CouponStack.navigationOptions = () => {
 const CategoryStack = createStackNavigator({
     Categories: Categories
 }, defaultStackConfig);
-
 CategoryStack.navigationOptions = () => {
     return {
         tabBarIcon: ({ focused }) => (
@@ -104,7 +85,6 @@ CategoryStack.navigationOptions = () => {
 const MoreStack = createStackNavigator({
     More: More
 }, defaultStackConfig);
-
 MoreStack.navigationOptions = () => {
     return {
         tabBarIcon: ({ focused }) => (
@@ -117,6 +97,16 @@ MoreStack.navigationOptions = () => {
     }
 };
 
+const tabsConfig = {
+    initialRouteName: 'Coupons',
+    tabBarOptions: {
+        activeTintColor: Colors.primary,
+        inactiveTintColor: Colors.light,
+        style: {
+            backgroundColor: Colors.secondary
+        }
+    }
+};
 const TabNavigator = createBottomTabNavigator({
     Favorites: FavoriteStack,
     Featured: FeaturedStack,

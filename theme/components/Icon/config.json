@@ -78,7 +78,7 @@
     },
     {
       "uid": "b55d8e4ca55dfc5a610d7cc4a1a4adaf",
-      "css": "tile-9",
+      "css": "grid",
       "code": 59399,
       "src": "custom_icons",
       "selected": true,
@@ -87,12 +87,12 @@
         "width": 1000
       },
       "search": [
-        "tile-9"
+        "grid"
       ]
     },
     {
       "uid": "1543289467921fffb44ed4cb353095b6",
-      "css": "tile-4",
+      "css": "grid-9",
       "code": 59400,
       "src": "custom_icons",
       "selected": true,
@@ -101,7 +101,7 @@
         "width": 1000
       },
       "search": [
-        "tile-4"
+        "grid-9"
       ]
     },
     {
