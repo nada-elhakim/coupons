@@ -12,6 +12,12 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     header: {
-        backgroundColor: Colors.primary
+        backgroundColor: Colors.primary,
+    },
+    headerRightContainer: {
+        paddingRight: Metrics.defaultPadding
+    },
+    headerLeftContainer: {
+        paddingLeft: Metrics.defaultPadding
     }
 });

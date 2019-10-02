@@ -13,13 +13,16 @@ import AppStyles from "../../theme/styles/AppStyles";
 import Colors from "../../theme/variables/Colors";
 import FontelloIcon from "../../theme/components/Icon/FontelloIcon";
 import TabBarIcon from "../Components/TabBarIcon";
+import AppTitle from "../Components/AppTitle";
 
 
 const defaultNavigationOptions: NavigationStackOptions = {
-    headerTitle: (<Text>Shop</Text>),
+    headerTitle: <AppTitle />,
     headerRight: <ProfileButton />,
     headerLeft: <CapturedLbs/>,
-    headerStyle: AppStyles.header
+    headerStyle: AppStyles.header,
+    headerLeftContainerStyle: AppStyles.headerLeftContainer,
+    headerRightContainerStyle: AppStyles.headerRightContainer
 };
 
 const defaultStackConfig = {
