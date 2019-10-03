@@ -6,12 +6,12 @@ import Coupons from "../screens/Coupons/Coupons";
 import Categories from "../screens/Categories/Categories";
 import More from "../screens/More/More";
 import {createStackNavigator, NavigationStackOptions} from "react-navigation-stack";
-import ProfileButton from "../Components/ProfileButton";
-import CapturedLbs from "../Components/CapturedLbs";
-import AppStyles from "../../theme/styles/AppStyles";
-import Colors from "../../theme/variables/Colors";
-import TabBarIcon from "../Components/TabBarIcon";
-import AppTitle from "../Components/AppTitle";
+import ProfileButton from "../components/ProfileButton";
+import CapturedLbs from "../components/CapturedLbs";
+import AppStyles from "../theme/styles/AppStyles";
+import Colors from "../theme/variables/Colors";
+import TabBarIcon from "../components/TabBarIcon";
+import AppTitle from "../components/AppTitle";
 
 const defaultNavigationOptions: NavigationStackOptions = {
     headerTitle: <AppTitle />,

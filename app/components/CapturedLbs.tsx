@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import Colors from "../../theme/variables/Colors";
+import Colors from "../theme/variables/Colors";
 
 const CapturedLbs = () => {
     return (

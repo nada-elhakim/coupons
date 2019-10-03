@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text} from 'react-native';
 import {StyleSheet} from 'react-native';
-import Colors from "../../theme/variables/Colors";
+import Colors from "../theme/variables/Colors";
 
 
 const AppTitle = () => {
