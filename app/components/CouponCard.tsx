@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View, Image} from "react-native";
 import Button from "../theme/components/Button/Button";
 import FontelloIcon from "../theme/components/Icon/FontelloIcon";
 import Metrics from "../theme/variables/Metrics";
@@ -14,21 +14,19 @@ class CouponCard extends Component{
     }
 
     renderGridView() {
-        const {coupon, viewOption} = this.props;
+        const {coupon} = this.props;
         return (
             <View style={[styles.container, {marginRight: 0}]}>
                 <Button transparent>
                     <FontelloIcon name="heart" color={Colors.danger} size={24}/>
                 </Button>
 
-                {/*<ResponsiveImage*/}
-                {/*    height={200}*/}
-                {/*    width={200}*/}
-                {/*    source={coupon.imageURL} />*/}
+                <ResponsiveImage
+                    source={coupon.imageURL} />
 
                 <View>
-                    <Text>{coupon.valuePerDollar}</Text>
-                    <Text>{coupon.value}</Text>
+                    <Text style={{marginBottom: 4}}>{coupon.valuePerDollar}</Text>
+                    <Text style={styles.highlight}>{coupon.value} LBS.</Text>
                 </View>
             </View>
         )
@@ -37,20 +35,18 @@ class CouponCard extends Component{
     renderListView() {
         const {coupon} = this.props;
         return (
-            <View style={styles.container}>
-                {/*<ResponsiveImage*/}
-                {/*    width={Metrics.windowWidth}*/}
-                {/*    source={coupon.imageURL} />*/}
+            <View style={[styles.container, styles.listContainer]}>
+                <ResponsiveImage
+                    width={100}
+                    source={coupon.imageURL} />
 
-                <View>
-                    <View>
-                        <Text>{coupon.valuePerDollar}</Text>
-                        <Text>{coupon.value}</Text>
-                    </View>
-                    <Button transparent>
-                        <FontelloIcon name="heart" color={Colors.danger} size={24}/>
-                    </Button>
+                <View style={{paddingHorizontal: 12}}>
+                    <Text style={{marginBottom: 4}}>{coupon.valuePerDollar}</Text>
+                    <Text style={styles.highlight}>{coupon.value} LBS.</Text>
                 </View>
+                <Button transparent containerStyle={{position: 'absolute', right: 16, top: 8}}>
+                    <FontelloIcon name="heart" color={Colors.danger} size={24}/>
+                </Button>
             </View>
         )
     }
@@ -73,6 +69,16 @@ const styles = StyleSheet.create({
     },
     grid9Container: {
 
+    },
+    listContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: Metrics.defaultPadding
+    },
+    highlight: {
+        color: Colors.success,
+        fontWeight: 'bold',
+        fontSize: 16
     }
 
 });

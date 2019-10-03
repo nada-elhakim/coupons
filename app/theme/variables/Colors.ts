@@ -6,6 +6,7 @@ const
     white = '#FFFFFF',
     dark = '#3A3A3A',
     highlight = '#DDDDDD',
+    success = '#2aa038',
     light = '#EEEEEE';
 
 export default {
@@ -18,6 +19,7 @@ export default {
     light,
     highlight,
     tertiary,
+    success,
 
     // Button
     buttonDisabledColor: primary,

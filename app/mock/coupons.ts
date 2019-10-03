@@ -6,7 +6,7 @@ export interface Coupon {
     title: string;
     imageURL: string;
     value: number;
-    valuePerDollar: number;
+    valuePerDollar: string;
     isFavorite?: boolean;
 }
 
@@ -16,41 +16,41 @@ export const CouponsMock: Coupon[] = [
         title: 'Cycle gear',
         imageURL: Images.cycleGearLogo,
         value: 10,
-        valuePerDollar: 8
+        valuePerDollar: '8 lbs. / $'
     },
     {
         id: 2,
         title: 'All posters',
         imageURL: Images.allPostersLogo,
         value: 30,
-        valuePerDollar: 10
+        valuePerDollar: '10 lbs. / $'
     },
     {
         id: 3,
         title: 'Autobarn',
         imageURL: Images.autobarnLogo,
         value: 112,
-        valuePerDollar: 80
+        valuePerDollar: '80 lbs. / $'
     },
     {
         id: 4,
         title: 'Booking',
         imageURL: Images.bookingLogo,
         value: 11,
-        valuePerDollar: 500
+        valuePerDollar: '500 lbs. / booking'
     },
     {
         id: 5,
         title: 'Chemical guys',
         imageURL: Images.chemicalGuysLogo,
         value: 43,
-        valuePerDollar: 2
+        valuePerDollar: '2 lbs. / $'
     },
     {
         id: 6,
         title: 'Oscaro',
         imageURL: Images.oscaroLogo,
         value: 200,
-        valuePerDollar: 80
+        valuePerDollar: '80 lbs. / $'
     }
 ];
