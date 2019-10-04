@@ -7,35 +7,9 @@ import CouponList from "../../components/CouponList";
 import Dropdown, {DropdownOption} from "../../theme/components/Dropdown/Dropdown";
 import Metrics from "../../theme/variables/Metrics";
 import Colors from "../../theme/variables/Colors";
-
-enum SortOptionValue {
-    ALPHABETICAL,
-    POUNDS_CAPTURED,
-    DATE,
-    NONE
-}
+import {sortOptions, SortOptionValue} from "../../mock/coupon-sort-options";
 
 class Coupons extends Component {
-
-    sortOptions: DropdownOption[] = [
-        {
-            value: SortOptionValue.NONE,
-            label: 'None'
-        },
-        {
-            value: SortOptionValue.ALPHABETICAL,
-            label: 'Alphabetically'
-        },
-        {
-            value: SortOptionValue.POUNDS_CAPTURED,
-            label: 'Pounds Captured'
-        },
-        {
-            value: SortOptionValue.DATE,
-            label: 'Newest'
-        }
-    ];
-
     state = {
         currentViewOption: ViewOption.Grid,
         coupons: [...CouponsMock]
@@ -51,7 +25,7 @@ class Coupons extends Component {
                 <View style={{flexDirection: 'row', alignItems: 'center', paddingHorizontal: Metrics.defaultPadding}}>
                     <Dropdown
                         dropdownTitle="Sort by"
-                        options={this.sortOptions}
+                        options={sortOptions}
                         onOptionSelected={this.onDropdownOptionSelected.bind(this)}/>
                     <ViewToggleButtons onToggleOptionSelected={this.onToggleOptionSelected.bind(this)} />
                 </View>

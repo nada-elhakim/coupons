@@ -1,11 +1,16 @@
-import React, {Component} from "react";
+import * as React from 'react';
 import {FlatList} from "react-native";
 import CouponCard from "./CouponCard";
 import {Coupon} from "../mock/coupons";
 import {ViewOption} from "./ViewToggleButtons";
 import Metrics from "../theme/variables/Metrics";
 
-class CouponList extends Component {
+interface Props {
+    coupons: Coupon[];
+    viewOption: ViewOption;
+}
+
+class CouponList extends React.Component<Props> {
     render() {
         const {coupons, viewOption} = this.props;
         return (

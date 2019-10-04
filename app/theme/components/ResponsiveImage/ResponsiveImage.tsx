@@ -1,9 +1,22 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import {Image} from 'react-native';
 import resolveAssetSource from 'react-native/Libraries/Image/resolveAssetSource';
-import PropTypes from 'prop-types';
 
-class ResponsiveImage extends Component {
+interface Props {
+    source: any;
+    width: number;
+    height?: number;
+    style?: any;
+}
+
+interface State {
+    size: {
+        width: number;
+        height: number;
+    }
+}
+
+class ResponsiveImage extends React.Component<Props, State> {
     state = {
         size: {
             width: null,
@@ -17,14 +30,17 @@ class ResponsiveImage extends Component {
 
     render() {
         return (
-            <Image { ...this.props } style={[this.props.style, this.state.size]}/>
+            <Image { ...this.props } style={[this.props.style && this.props.style, this.state.size]}/>
         );
     }
 
     onPropsReceived(props) {
         if (props.source.uri) {
             const source = props.source.uri ? props.source.uri : props.source;
-            Image.getSize(source, (width, height) => this.adjustImageSize(width, height, props));
+            Image.getSize(
+                source,
+                (width, height) => this.adjustImageSize(width, height, props),
+                () => {console.log('Error getting image size')});
         }
         else {
             const source = resolveAssetSource(props.source);
@@ -32,7 +48,7 @@ class ResponsiveImage extends Component {
         }
     }
 
-    adjustImageSize(sourceWidth, sourceHeight, props) {
+    adjustImageSize(sourceWidth: number, sourceHeight: number, props: Props) {
         const { width, height} = props;
 
         let ratio = 1;
@@ -57,9 +73,4 @@ class ResponsiveImage extends Component {
 }
 
 export default ResponsiveImage;
-
-ResponsiveImage.propTypes = {
-    width: PropTypes.number,
-    height: PropTypes.number,
-};
 

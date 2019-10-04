@@ -1,8 +1,23 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import {TextInput, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
-class SearchBar extends Component {
+interface Props {
+    onClear?: any;
+    onFocus?: any;
+    onChangeText: any;
+    onBlur?: any;
+    value?: string;
+}
+
+interface State {
+    isEmpty: boolean;
+    isFocused: boolean;
+}
+
+class SearchBar extends React.Component<Props, State> {
+    input: TextInput;
+
     constructor(props) {
         super(props);
         const { value } = props;
@@ -43,8 +58,7 @@ class SearchBar extends Component {
     };
 
     render() {
-        const { isEmpty, isFocused } = this.state;
-        console.log(isFocused);
+        const {isFocused} = this.state;
         return (
             <View style={styles.inputContainer}>
                 <TextInput

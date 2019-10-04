@@ -6,13 +6,27 @@ import {
     ActivityIndicator,
     Platform,
     StyleSheet,
-    Keyboard,
+    Keyboard, ViewStyle,
 } from 'react-native';
 import Colors from '../../variables/Colors';
 import Metrics from '../../variables/Metrics';
-import PropTypes from 'prop-types';
 
-class Button extends Component {
+interface Props {
+    TouchableComponent?: React.ElementType<TouchableNativeFeedback | TouchableOpacity>;
+    containerStyle?: ViewStyle,
+    buttonStyle?: ViewStyle,
+    disabledStyle?: ViewStyle,
+    disabled?: boolean,
+    headerButton?: boolean,
+    loading?: boolean,
+    transparent?: boolean;
+    small?: boolean,
+    children: any,
+    ViewComponent?: React.ElementType<View>,
+    onPress: () => void
+}
+
+class Button extends Component<Props> {
     static defaultProps = {
         TouchableComponent:  Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity,
         onPress: () => console.log('Please attach a method to this component'),
@@ -71,17 +85,6 @@ class Button extends Component {
 }
 
 export default Button;
-
-Button.propTypes = {
-    transparent: PropTypes.bool,
-    disabled: PropTypes.bool,
-    headerButton: PropTypes.bool,
-    loading: PropTypes.bool,
-    onPress: PropTypes.func.isRequired,
-    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    buttonStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-};
-
 
 const styles = StyleSheet.create({
     button: {

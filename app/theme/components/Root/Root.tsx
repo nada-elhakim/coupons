@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import { View, ViewPropTypes } from "react-native";
-import PropTypes from "prop-types";
+import * as React from "react";
+import {View} from "react-native";
 import { ToastContainer as Toast } from "../Toast/ToastContainer";
 
-class Root extends Component {
+class Root extends React.Component {
+    root: View;
+
     render() {
         return (
-            <View ref={c => (this._root = c)} {...this.props} style={{ flex: 1 }}>
+            <View ref={c => (this.root = c)} {...this.props} style={{ flex: 1 }}>
                 {this.props.children}
                 <Toast
                     ref={c => {
@@ -17,14 +18,5 @@ class Root extends Component {
         );
     }
 }
-
-Root.propTypes = {
-    ...ViewPropTypes,
-    style: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.number,
-        PropTypes.array
-    ])
-};
 
 export {Root};

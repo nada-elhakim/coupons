@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import * as React from 'react';
 import {StyleSheet, Text, View} from "react-native";
 import Button from "../theme/components/Button/Button";
 import FontelloIcon from "../theme/components/Icon/FontelloIcon";
@@ -9,7 +9,13 @@ import {ViewOption} from "./ViewToggleButtons";
 import AppContext from "../context/AppContext";
 import {Coupon} from "../mock/coupons";
 
-class CouponCard extends Component{
+interface Props {
+    coupon: Coupon;
+    viewOption: ViewOption;
+    index: number;
+}
+
+class CouponCard extends React.Component<Props> {
     static contextType = AppContext;
 
     render() {
@@ -26,12 +32,12 @@ class CouponCard extends Component{
             }}>
                 <View style={[
                     styles.container,
-                    styles.gridContainer,
-                    {
-                        // marginRight: this.calculateRightMargin(index, viewOption),
-                    }
+                    styles.gridContainer
                 ]}>
-                    <Button transparent containerStyle={{position: 'absolute', left: 16, top: 8}}>
+                    <Button
+                        onPress={this.context.addCouponToFavorites.bind(this, coupon)}
+                        transparent
+                        containerStyle={{position: 'absolute', left: 16, top: 8}}>
                         <FontelloIcon name="heart" color={Colors.danger} size={24}/>
                     </Button>
 
@@ -45,7 +51,7 @@ class CouponCard extends Component{
                     </View>
 
                     <Button
-                        onPress={this.captureCoupon.bind(this, coupon)}
+                        onPress={this.context.captureCoupon.bind(this, coupon)}
                         transparent
                         containerStyle={{position: 'absolute', right: 16, bottom: 4}}>
                         <FontelloIcon name="coupon" color={Colors.primary} size={24}/>
@@ -71,22 +77,20 @@ class CouponCard extends Component{
 
                 <View style={{position: 'absolute', right: 16, top: 8, flexDirection: 'row'}}>
                     <Button
-                        onPress={this.captureCoupon.bind(this, coupon)}
+                        onPress={this.context.captureCoupon.bind(this, coupon)}
                         transparent
                         containerStyle={{marginRight: 8}}>
                         <FontelloIcon name="coupon" color={Colors.primary} size={24}/>
                     </Button>
-                    <Button transparent>
+                    <Button
+                        onPress={this.context.addCouponToFavorites.bind(this, coupon)}
+                        transparent>
                         <FontelloIcon name="heart" color={Colors.danger} size={24}/>
                     </Button>
                 </View>
 
             </View>
         )
-    }
-
-    captureCoupon(coupon: Coupon) {
-        this.context.captureCoupon(coupon);
     }
 }
 
@@ -96,14 +100,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         borderWidth: 1,
-        borderRadius: 6,
+        borderRadius: Metrics.defaultBorderRadius,
         borderColor: Colors.tertiary,
     },
     gridContainer: {
         paddingTop: 50,
         padding: Metrics.defaultPadding,
         alignItems: 'center',
-        margin: 5
+        margin: Metrics.defaultMargin / 3
     },
     listContainer: {
         flexDirection: 'row',

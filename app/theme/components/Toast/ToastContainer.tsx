@@ -1,23 +1,44 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {
     Platform,
     Animated,
     StyleSheet,
     ViewPropTypes,
-    Text
+    Text, TextStyle, ViewStyle
 } from "react-native";
 
 import {Toast}  from "./Toast";
 import Button from "../Button/Button";
 import Colors from "../../variables/Colors";
 
-class ToastContainer extends Component {
+interface Props {
+
+}
+
+interface State {
+    modalVisible: boolean;
+    fadeAnim: Animated.Value;
+    position?: string;
+    text?: string;
+    buttonText?: string;
+    type?: string;
+    onClose?: (reason: any) => void;
+    supportedOrientations?: any;
+    style?: any;
+    buttonTextStyle?: TextStyle;
+    buttonStyle?: ViewStyle;
+    textStyle?: TextStyle;
+}
+
+class ToastContainer extends React.Component<Props, State> {
+    closeTimeout: any;
+
     constructor(props) {
         super(props);
         this.state = {
             modalVisible: false,
-            fadeAnim: new Animated.Value(0)
+            fadeAnim: new Animated.Value(0),
+            position: 'top'
         };
     }
     static toastInstance;
@@ -58,7 +79,7 @@ class ToastContainer extends Component {
     getModalState() {
         return this.state.modalVisible;
     }
-    showToast({ config }) {
+    showToast({config}) {
         this.setState({
             modalVisible: true,
             text: config.text,
@@ -91,7 +112,7 @@ class ToastContainer extends Component {
         this.setState({
             modalVisible: false
         });
-        const { onClose } = this.state;
+        const {onClose} = this.state;
         if (onClose && typeof onClose === "function") {
             onClose(reason);
         }
@@ -147,21 +168,6 @@ class ToastContainer extends Component {
         } else return null;
     }
 }
-
-ToastContainer.propTypes = {
-    ...ViewPropTypes,
-    style: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.number,
-        PropTypes.array
-    ])
-};
-
-// const StyledToastContainer = connectStyle(
-//     "NativeBase.ToastContainer",
-//     {},
-//     mapPropsToStyleNames
-// )(ToastContainer);
 
 export {ToastContainer};
 

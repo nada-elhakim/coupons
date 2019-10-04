@@ -3,7 +3,7 @@ import Button from "../theme/components/Button/Button";
 import FontelloIcon from "../theme/components/Icon/FontelloIcon";
 import Colors from "../theme/variables/Colors";
 
-const ProfileButton = () => {
+const ProfileButton: React.FunctionComponent  = () => {
     return (
         <Button transparent>
             <FontelloIcon

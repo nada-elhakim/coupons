@@ -1,20 +1,15 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { View, ViewPropTypes } from "react-native";
+import * as React from "react";
+import {View} from "react-native";
 
-class Toast extends Component {
-    render() {
-        return <View ref={c => (this._root = c)} {...this.props} />;
-    }
+interface Props {
+    style: any;
 }
 
-Toast.propTypes = {
-    ...ViewPropTypes,
-    style: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.number,
-        PropTypes.array
-    ])
-};
+class Toast extends React.Component<Props> {
+    root: View;
+    render() {
+        return <View ref={c => (this.root = c)} {...this.props} />;
+    }
+}
 
 export {Toast};

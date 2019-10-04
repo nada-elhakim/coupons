@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Favorites from "../screens/Favorites/Favorites";
 import Featured from "../screens/Featured/Featured";

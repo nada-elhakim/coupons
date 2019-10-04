@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import {View, StyleSheet} from "react-native";
 import Button from "../theme/components/Button/Button";
 import FontelloIcon from "../theme/components/Icon/FontelloIcon";
@@ -10,17 +10,35 @@ export enum ViewOption {
     Grid9
 }
 
-class ViewToggleButtons extends Component {
+interface Props {
+    iconSize?: number;
+    iconColor?: string;
+    selectedIconColor?: string;
+    onToggleOptionSelected: (viewOption: ViewOption) => void;
+}
+
+interface State {
+    viewOption: ViewOption;
+}
+
+class ViewToggleButtons extends React.Component<Props, State> {
+    static defaultProps = {
+        iconSize: 24,
+        iconColor: Colors.tertiary,
+        selectedIconColor: Colors.primary
+    };
+
     state = {
         viewOption: ViewOption.Grid9
     };
 
     render() {
         const {
-            iconSize = 24,
-            iconColor = Colors.tertiary,
-            selectedIconColor = Colors.primary
+            iconSize,
+            iconColor,
+            selectedIconColor
         } = this.props;
+
         const {viewOption} = this.state;
 
         return (
@@ -60,8 +78,8 @@ class ViewToggleButtons extends Component {
 
     toggleButtonPressed(viewOption: ViewOption) {
         const {onToggleOptionSelected} = this.props;
-        this.setState({viewOption})
         onToggleOptionSelected && onToggleOptionSelected(viewOption);
+        this.setState({viewOption});
     }
 }
 

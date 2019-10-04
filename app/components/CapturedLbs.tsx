@@ -1,19 +1,18 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import Colors from "../theme/variables/Colors";
 import AppContext from "../context/AppContext";
+import Metrics from "../theme/variables/Metrics";
 
-class CapturedLbs extends Component {
-    static contextType = AppContext;
+const CapturedLbs: React.FC = () => {
+    const context: any = React.useContext(AppContext);
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.text}>{this.context.capturedCoupons} LBS Captured</Text>
-            </View>
-        )
-    }
-}
+    return (
+        <View style={styles.container}>
+            <Text style={styles.text}>{context.capturedCoupons} LBS Captured</Text>
+        </View>
+    )
+};
 
 export default CapturedLbs;
 
@@ -22,8 +21,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0.2)',
         borderWidth: 1,
         borderColor: Colors.white,
-        borderRadius: 3,
-        paddingHorizontal: 8,
+        borderRadius: Metrics.defaultBorderRadius /2,
+        paddingHorizontal: Metrics.defaultPadding / 2,
         paddingVertical: 2
     },
     text: {

@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import * as React from "react";
 import Button from "../Button/Button";
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Feather from 'react-native-vector-icons/Feather';
@@ -19,7 +19,22 @@ export interface DropdownOption {
     label: string;
 }
 
-class Dropdown extends Component {
+interface State {
+    modalVisible: boolean;
+    selectedOption: DropdownOption;
+}
+
+interface Props {
+    dropdownTitle?: string;
+    options: DropdownOption[];
+    onOptionSelected: (option: DropdownOption) => void;
+}
+
+class Dropdown extends React.Component<Props, State> {
+    static defaultProps = {
+        dropdownTitle: 'Select'
+    };
+
     state = {
         modalVisible: false,
         selectedOption: null
@@ -31,7 +46,7 @@ class Dropdown extends Component {
 
     render() {
         const {
-            dropdownTitle = 'Select',
+            dropdownTitle,
             options,
         } = this.props;
 

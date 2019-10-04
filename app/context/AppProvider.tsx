@@ -1,12 +1,23 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import AppContext from './AppContext';
 import {Coupon} from "../mock/coupons";
 import {ToastContainer as Toast} from "../theme/components/Toast/ToastContainer";
+import CouponService from "../services/CouponService";
+import {SortOptionValue} from "../mock/coupon-sort-options";
 
+interface State {
+    capturedCoupons: number;
+    favoriteCoupons: Coupon[];
+    favoriteCouponsCopy: Coupon[];
+}
 
-class AppProvider extends Component {
+class AppProvider extends React.Component<any, State> {
+    couponService = new CouponService();
+
     state = {
         capturedCoupons: 0,
+        favoriteCoupons: null,
+        favoriteCouponsCopy: null
     };
 
     captureCoupon(coupon: Coupon) {
@@ -19,34 +30,49 @@ class AppProvider extends Component {
         });
     }
 
-    // photoStorageService = new PhotoStorageService();
-    //
-    // async loadPhotos() {
-    //     const photos = await this.photoStorageService.loadPhotos();
-    //     this.setState({myPhotos: photos});
-    // }
-    //
-    // uploadPhoto(photo) {
-    //     const photos = this.state.myPhotos;
-    //     photos.unshift(photo);
-    //     this.setState({myPhotos: photos});
-    //     this.photoStorageService.savePhotos(photos);
-    // }
-    //
-    // deletePhoto(photo) {
-    //     const filteredPhotos = this.state.myPhotos.filter(savedPhoto => savedPhoto.id !== photo.id);
-    //     this.setState({myPhotos: filteredPhotos});
-    //     this.photoStorageService.savePhotos(filteredPhotos);
-    // }
+    addCouponToFavorites(coupon: Coupon) {
+        const favorites = this.state.favoriteCoupons || [];
+        if (favorites.findIndex(item => item.id === coupon.id) > -1) {
+            Toast.show({
+                text: `${coupon.title} exits in favorites`,
+                buttonText: 'OK',
+                duration: 2000,
+                type: 'danger'
+            });
+        } else {
+            favorites.unshift(coupon);
+            this.setState({favoriteCoupons: favorites});
+            this.setState({favoriteCouponsCopy: favorites});
+            Toast.show({
+                text: `${coupon.title} added to favorites`,
+                buttonText: 'OK',
+                duration: 2000,
+                type: 'success'
+            });
+        }
+    }
+
+    searchFavorites(value: string) {
+        const coupons = [...this.state.favoriteCouponsCopy];
+        console.log(this.couponService.searchCoupons(value, coupons));
+        this.setState({favoriteCoupons: this.couponService.searchCoupons(value, coupons)})
+    }
+
+    sortFavorites(optionValue: SortOptionValue) {
+        const coupons = [...this.state.favoriteCouponsCopy];
+        this.setState({favoriteCoupons: this.couponService.sortCoupon(optionValue,  coupons)})
+    }
 
     render() {
         return (
             <AppContext.Provider
                 value={{
                     capturedCoupons: this.state.capturedCoupons,
+                    favoriteCoupons: this.state.favoriteCoupons,
                     captureCoupon: this.captureCoupon.bind(this),
-                    // uploadPhoto: this.uploadPhoto.bind(this),
-                    // deletePhoto: this.deletePhoto.bind(this),
+                    addCouponToFavorites: this.addCouponToFavorites.bind(this),
+                    searchFavorites: this.searchFavorites.bind(this),
+                    sortFavorites: this.sortFavorites.bind(this)
                 }}
             >
                 {this.props.children}

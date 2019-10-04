@@ -8,6 +8,7 @@ export default {
     // General
     defaultMargin: 16,
     defaultPadding: 16,
+    defaultBorderRadius: 6,
 
     // Button
     buttonHorizontalPadding: 20,

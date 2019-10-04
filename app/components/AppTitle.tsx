@@ -1,13 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import {Text} from 'react-native';
 import {StyleSheet} from 'react-native';
 import Colors from "../theme/variables/Colors";
 
-
-const AppTitle = () => {
-    return (
-        <Text style={styles.appTitle}>Shop</Text>
-    )
+const AppTitle: React.FC = () => {
+    return <Text style={styles.appTitle}>Shop</Text>;
 };
 
 export default AppTitle;
