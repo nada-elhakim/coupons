@@ -15,11 +15,12 @@ import AppTitle from "../components/AppTitle";
 
 const defaultNavigationOptions: NavigationStackOptions = {
     headerTitle: <AppTitle />,
+    headerTitleStyle: AppStyles.headerTitleStyle,
     headerRight: <ProfileButton />,
     headerLeft: <CapturedLbs/>,
     headerStyle: AppStyles.header,
     headerLeftContainerStyle: AppStyles.headerLeftContainer,
-    headerRightContainerStyle: AppStyles.headerRightContainer
+    headerRightContainerStyle: AppStyles.headerRightContainer,
 };
 const defaultStackConfig = {
     defaultNavigationOptions

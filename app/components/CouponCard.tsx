@@ -6,16 +6,20 @@ import Metrics from "../theme/variables/Metrics";
 import ResponsiveImage from "../theme/components/ResponsiveImage/ResponsiveImage";
 import Colors from "../theme/variables/Colors";
 import {ViewOption} from "./ViewToggleButtons";
+import AppContext from "../context/AppContext";
+import {Coupon} from "../mock/coupons";
 
 class CouponCard extends Component{
+    static contextType = AppContext;
+
     render() {
         const {viewOption} = this.props;
         return (viewOption === ViewOption.Grid || viewOption === ViewOption.Grid9) ? this.renderGridView() : this.renderListView()
     }
 
     renderGridView() {
-        const {coupon, viewOption, index} = this.props;
-        const imgWidth = viewOption === ViewOption.Grid ? (Metrics.windowWidth / 2) - 60 : (Metrics.windowWidth / 3) - 60
+        const {coupon, viewOption} = this.props;
+        const imgWidth = viewOption === ViewOption.Grid ? (Metrics.windowWidth / 2) - 60 : (Metrics.windowWidth / 3) - 60;
         return (
             <View style={{
                 flex: viewOption === ViewOption.Grid ? 1/2 : 1/3
@@ -40,7 +44,10 @@ class CouponCard extends Component{
                         <Text style={[styles.highlight, {textAlign: 'center'}]}>{coupon.value} LBS.</Text>
                     </View>
 
-                    <Button transparent containerStyle={{position: 'absolute', right: 16, bottom: 4}}>
+                    <Button
+                        onPress={this.captureCoupon.bind(this, coupon)}
+                        transparent
+                        containerStyle={{position: 'absolute', right: 16, bottom: 4}}>
                         <FontelloIcon name="coupon" color={Colors.primary} size={24}/>
                     </Button>
                 </View>
@@ -63,7 +70,10 @@ class CouponCard extends Component{
                 </View>
 
                 <View style={{position: 'absolute', right: 16, top: 8, flexDirection: 'row'}}>
-                    <Button transparent containerStyle={{marginRight: 8}}>
+                    <Button
+                        onPress={this.captureCoupon.bind(this, coupon)}
+                        transparent
+                        containerStyle={{marginRight: 8}}>
                         <FontelloIcon name="coupon" color={Colors.primary} size={24}/>
                     </Button>
                     <Button transparent>
@@ -75,13 +85,8 @@ class CouponCard extends Component{
         )
     }
 
-    calculateRightMargin(index: number, viewOption: ViewOption) {
-        const idx = index + 1;
-        if (viewOption === ViewOption.Grid) {
-            return idx % 2 === 0 ? 0 : Metrics.defaultMargin
-        } else {
-            return idx % 3 === 0 ? 0 : Metrics.defaultMargin
-        }
+    captureCoupon(coupon: Coupon) {
+        this.context.captureCoupon(coupon);
     }
 }
 

@@ -17,7 +17,9 @@ const styles = StyleSheet.create({
         color: Colors.light,
         textTransform: 'uppercase',
         fontWeight: 'bold',
-        fontSize: 18
+        fontSize: 18,
+        marginRight: 'auto',
+        marginLeft: 'auto'
     }
 });
 

@@ -1,14 +1,19 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import Colors from "../theme/variables/Colors";
+import AppContext from "../context/AppContext";
 
-const CapturedLbs = () => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.text}>LBS Captured</Text>
-        </View>
-    )
-};
+class CapturedLbs extends Component {
+    static contextType = AppContext;
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.text}>{this.context.capturedCoupons} LBS Captured</Text>
+            </View>
+        )
+    }
+}
 
 export default CapturedLbs;
 
@@ -25,6 +30,6 @@ const styles = StyleSheet.create({
         color: Colors.white,
         fontWeight: 'bold',
         textTransform: 'uppercase',
-        fontSize: 12
+        fontSize: 11
     }
 });

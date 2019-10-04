@@ -33,7 +33,6 @@ class CouponList extends Component {
             default:
                 return 1;
         }
-
     }
 }
 

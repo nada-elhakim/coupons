@@ -58,12 +58,5 @@ export const CouponsMock: Coupon[] = [
         value: 200,
         valuePerDollar: '80 lbs. / $',
         date: 1570212289274
-    },
-    {
-        id: 7,
-        title: 'Oscaro',
-        imageURL: Images.oscaroLogo,
-        value: 200,
-        valuePerDollar: '80 lbs. / $'
     }
 ];

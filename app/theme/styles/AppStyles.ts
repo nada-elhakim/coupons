@@ -12,12 +12,20 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     header: {
-        backgroundColor: Colors.primary,
+        backgroundColor: Colors.primary
     },
     headerRightContainer: {
         paddingRight: Metrics.defaultPadding
     },
     headerLeftContainer: {
         paddingLeft: Metrics.defaultPadding
-    }
+    },
+    headerTitleStyle: {
+        alignSelf: 'center',
+        textAlign: "center",
+        justifyContent: 'center',
+        flex: 1,
+        fontWeight: 'bold',
+        textAlignVertical: 'center'
+    },
 });

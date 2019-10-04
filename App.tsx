@@ -1,9 +1,15 @@
 import React from 'react';
 import AppNavigator from "./app/navigation/AppNavigator";
+import AppProvider from "./app/context/AppProvider";
+import {Root} from "./app/theme/components/Root/Root";
 
 const App = () => {
   return (
-    <AppNavigator />
+      <Root>
+          <AppProvider>
+              <AppNavigator />
+          </AppProvider>
+      </Root>
   );
 };
 
