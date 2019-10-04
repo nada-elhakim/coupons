@@ -14,27 +14,38 @@ class CouponCard extends Component{
     }
 
     renderGridView() {
-        const {coupon, viewOption} = this.props;
+        const {coupon, viewOption, index} = this.props;
         const imgWidth = viewOption === ViewOption.Grid ? (Metrics.windowWidth / 2) - 60 : (Metrics.windowWidth / 3) - 60
         return (
-            <View style={[styles.container, styles.gridContainer, {marginRight: this.calculateRightMargin(coupon.id, viewOption)}]}>
-                <Button transparent containerStyle={{position: 'absolute', left: 16, top: 8}}>
-                    <FontelloIcon name="heart" color={Colors.danger} size={24}/>
-                </Button>
+            <View style={{
+                flex: viewOption === ViewOption.Grid ? 1/2 : 1/3
+            }}>
+                <View style={[
+                    styles.container,
+                    styles.gridContainer,
+                    {
+                        // marginRight: this.calculateRightMargin(index, viewOption),
+                    }
+                ]}>
+                    <Button transparent containerStyle={{position: 'absolute', left: 16, top: 8}}>
+                        <FontelloIcon name="heart" color={Colors.danger} size={24}/>
+                    </Button>
 
-                <ResponsiveImage
-                    width={imgWidth}
-                    source={coupon.imageURL} />
+                    <ResponsiveImage
+                        width={imgWidth}
+                        source={coupon.imageURL} />
 
-                <View>
-                    <Text style={{marginBottom: 10, textAlign: 'center'}}>{coupon.valuePerDollar}</Text>
-                    <Text style={[styles.highlight, {textAlign: 'center'}]}>{coupon.value} LBS.</Text>
+                    <View>
+                        <Text style={{marginBottom: 10, textAlign: 'center'}}>{coupon.valuePerDollar}</Text>
+                        <Text style={[styles.highlight, {textAlign: 'center'}]}>{coupon.value} LBS.</Text>
+                    </View>
+
+                    <Button transparent containerStyle={{position: 'absolute', right: 16, bottom: 4}}>
+                        <FontelloIcon name="coupon" color={Colors.primary} size={24}/>
+                    </Button>
                 </View>
-
-                <Button transparent containerStyle={{position: 'absolute', right: 16, bottom: 4}}>
-                    <FontelloIcon name="coupon" color={Colors.primary} size={24}/>
-                </Button>
             </View>
+
         )
     }
 
@@ -64,11 +75,12 @@ class CouponCard extends Component{
         )
     }
 
-    calculateRightMargin(id: number, viewOption: ViewOption) {
+    calculateRightMargin(index: number, viewOption: ViewOption) {
+        const idx = index + 1;
         if (viewOption === ViewOption.Grid) {
-            return id % 2 === 0 ? 0 : Metrics.defaultMargin
+            return idx % 2 === 0 ? 0 : Metrics.defaultMargin
         } else {
-            return id % 3 === 0 ? 0 : Metrics.defaultMargin
+            return idx % 3 === 0 ? 0 : Metrics.defaultMargin
         }
     }
 }
@@ -81,17 +93,18 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 6,
         borderColor: Colors.tertiary,
-        marginBottom: Metrics.defaultMargin,
     },
     gridContainer: {
         paddingTop: 50,
         padding: Metrics.defaultPadding,
-        alignItems: 'center'
+        alignItems: 'center',
+        margin: 5
     },
     listContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         padding: Metrics.defaultPadding,
+        marginBottom: Metrics.defaultMargin,
     },
     highlight: {
         color: Colors.success,

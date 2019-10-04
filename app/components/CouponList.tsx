@@ -10,13 +10,16 @@ class CouponList extends Component {
         const {coupons, viewOption} = this.props;
         return (
             <FlatList
-                contentContainerStyle={{paddingHorizontal: Metrics.defaultPadding}}
+                contentContainerStyle={{
+                    paddingHorizontal: Metrics.defaultPadding,
+                    marginHorizontal: viewOption === ViewOption.List ? 0 : -5
+                }}
                 key={viewOption}
                 numColumns={this.getNumberOfColumns()}
                 data={coupons}
                 extraData={viewOption}
                 keyExtractor={(item: Coupon) => item.id.toString()}
-                renderItem={({item}) => <CouponCard coupon={item} viewOption={viewOption}/>} />
+                renderItem={({item, index}) => <CouponCard coupon={item} viewOption={viewOption} index={index}/>} />
         );
     }
 

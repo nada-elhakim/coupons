@@ -47,8 +47,11 @@ class SearchBar extends Component {
         console.log(isFocused);
         return (
             <View style={styles.inputContainer}>
-                <TextInput clearButtonMode={"while-editing"} style={styles.input} ref={ref => {
-                    this.input = ref;
+                <TextInput
+                    onChangeText={this.onChangeText}
+                    clearButtonMode={"while-editing"} style={styles.input}
+                    ref={ref => {
+                    this.input = ref
                 }}/>
                 {
                     !isFocused &&

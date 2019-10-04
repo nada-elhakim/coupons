@@ -1,48 +1,61 @@
 import React, {Component} from 'react';
 import SearchBar from "../../theme/components/Searchbar/Searchbar";
-import {View} from "react-native";
+import {View, StyleSheet} from "react-native";
 import ViewToggleButtons, {ViewOption} from "../../components/ViewToggleButtons";
 import {Coupon, CouponsMock} from "../../mock/coupons";
 import CouponList from "../../components/CouponList";
 import Dropdown, {DropdownOption} from "../../theme/components/Dropdown/Dropdown";
 import Metrics from "../../theme/variables/Metrics";
+import Colors from "../../theme/variables/Colors";
+
+enum SortOptionValue {
+    ALPHABETICAL,
+    POUNDS_CAPTURED,
+    DATE,
+    NONE
+}
 
 class Coupons extends Component {
-    coupons: Coupon[] = CouponsMock;
+
     sortOptions: DropdownOption[] = [
         {
-            value: 1,
+            value: SortOptionValue.NONE,
+            label: 'None'
+        },
+        {
+            value: SortOptionValue.ALPHABETICAL,
             label: 'Alphabetically'
         },
         {
-            value: 2,
+            value: SortOptionValue.POUNDS_CAPTURED,
             label: 'Pounds Captured'
         },
         {
-            value: 3,
-            label: 'Pounds Captured'
-        },
-        {
-            value: 4,
-            label: 'Pounds Captured'
+            value: SortOptionValue.DATE,
+            label: 'Newest'
         }
     ];
 
     state = {
-        currentViewOption: ViewOption.Grid
+        currentViewOption: ViewOption.Grid,
+        coupons: [...CouponsMock]
     };
 
     render() {
+        const {coupons} = this.state;
         return(
             <>
-                <View style={{backgroundColor: '#ccc', padding: 8}}>
-                    <SearchBar />
+                <View style={styles.searchBarContainer}>
+                    <SearchBar onChangeText={this.searchCoupons.bind(this)}/>
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center', paddingHorizontal: Metrics.defaultPadding}}>
-                    <Dropdown dropdownTitle="Sort by" options={this.sortOptions} onOptionSelected={this.onDropdownOptionSelected.bind(this)}/>
+                    <Dropdown
+                        dropdownTitle="Sort by"
+                        options={this.sortOptions}
+                        onOptionSelected={this.onDropdownOptionSelected.bind(this)}/>
                     <ViewToggleButtons onToggleOptionSelected={this.onToggleOptionSelected.bind(this)} />
                 </View>
-                <CouponList coupons={this.coupons} viewOption={this.state.currentViewOption}/>
+                <CouponList coupons={coupons} viewOption={this.state.currentViewOption}/>
             </>
         )
     }
@@ -53,7 +66,44 @@ class Coupons extends Component {
 
     onDropdownOptionSelected(option: DropdownOption) {
         console.log('option selected', option);
+        this.sortCoupon(option.value)
+    }
+
+    searchCoupons(value: string) {
+        if (value.length > 2 && value !== '') {
+            const filtered = this.state.coupons.filter(coupon => coupon.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
+            this.setState({coupons: filtered});
+        } else {
+            this.setState({coupons: CouponsMock});
+        }
+    }
+
+    sortCoupon(optionValue: SortOptionValue) {
+        let coupons = this.state.coupons;
+        switch (optionValue) {
+            case SortOptionValue.ALPHABETICAL:
+                coupons = coupons.sort((a: Coupon, b: Coupon) => a.title.localeCompare(b.title));
+                break;
+            case SortOptionValue.POUNDS_CAPTURED:
+                coupons = coupons.sort((a: Coupon, b: Coupon) => b.value - a.value);
+                break;
+            case SortOptionValue.DATE:
+                coupons = coupons.sort((a: Coupon, b: Coupon) => b.date - a.date);
+                break;
+            default:
+                coupons = CouponsMock;
+        }
+
+        this.setState({coupons})
     }
 }
 
 export default Coupons;
+
+const styles = StyleSheet.create({
+    searchBarContainer: {
+        backgroundColor: Colors.tertiary,
+        paddingHorizontal: Metrics.defaultPadding,
+        paddingVertical: Metrics.defaultPadding / 2
+    }
+});
