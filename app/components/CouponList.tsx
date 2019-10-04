@@ -3,12 +3,14 @@ import {FlatList} from "react-native";
 import CouponCard from "./CouponCard";
 import {Coupon} from "../mock/coupons";
 import {ViewOption} from "./ViewToggleButtons";
+import Metrics from "../theme/variables/Metrics";
 
 class CouponList extends Component {
     render() {
         const {coupons, viewOption} = this.props;
         return (
             <FlatList
+                contentContainerStyle={{paddingHorizontal: Metrics.defaultPadding}}
                 key={viewOption}
                 numColumns={this.getNumberOfColumns()}
                 data={coupons}
