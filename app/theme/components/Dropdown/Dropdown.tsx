@@ -73,7 +73,7 @@ class Dropdown extends React.Component<Props, State> {
     renderOptions(options: DropdownOption[]) {
         return (
             <Modal
-                animationType="slide"
+                animationType="fade"
                 transparent={true}
                 visible={this.state.modalVisible}
                 onRequestClose={() => {
