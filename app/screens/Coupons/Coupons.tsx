@@ -19,7 +19,7 @@ class Coupons extends Component {
     };
 
     render() {
-        const {coupons} = this.state;
+        const {coupons, currentViewOption} = this.state;
         return(
             <>
                 <View style={styles.searchBarContainer}>
@@ -30,12 +30,14 @@ class Coupons extends Component {
                         dropdownTitle="Sort by"
                         options={sortOptions}
                         onOptionSelected={this.onDropdownOptionSelected.bind(this)}/>
-                    <ViewToggleButtons onToggleOptionSelected={this.onToggleOptionSelected.bind(this)} />
+                    <ViewToggleButtons
+                        selectedOption={currentViewOption}
+                        onToggleOptionSelected={this.onToggleOptionSelected.bind(this)} />
                 </View>
                 <CouponList
                     noResultsMessage="No coupons"
                     coupons={coupons}
-                    viewOption={this.state.currentViewOption}/>
+                    viewOption={currentViewOption}/>
             </>
         )
     }

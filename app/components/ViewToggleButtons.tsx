@@ -11,6 +11,7 @@ export enum ViewOption {
 }
 
 interface Props {
+    selectedOption?: ViewOption;
     iconSize?: number;
     iconColor?: string;
     selectedIconColor?: string;
@@ -23,23 +24,19 @@ interface State {
 
 class ViewToggleButtons extends React.Component<Props, State> {
     static defaultProps = {
+        selectedOption: ViewOption.Grid,
         iconSize: 24,
         iconColor: Colors.tertiary,
         selectedIconColor: Colors.primary
     };
 
-    state = {
-        viewOption: ViewOption.Grid9
-    };
-
     render() {
         const {
+            selectedOption,
             iconSize,
             iconColor,
             selectedIconColor
         } = this.props;
-
-        const {viewOption} = this.state;
 
         return (
             <View style={styles.container}>
@@ -50,7 +47,7 @@ class ViewToggleButtons extends React.Component<Props, State> {
                     <FontelloIcon
                         name="grid-9"
                         size={iconSize}
-                        color={viewOption === ViewOption.Grid9 ? selectedIconColor : iconColor}/>
+                        color={selectedOption === ViewOption.Grid9 ? selectedIconColor : iconColor}/>
                 </Button>
 
                 <Button
@@ -60,7 +57,7 @@ class ViewToggleButtons extends React.Component<Props, State> {
                     <FontelloIcon
                         name="grid"
                         size={iconSize}
-                        color={viewOption === ViewOption.Grid ? selectedIconColor : iconColor}/>
+                        color={selectedOption === ViewOption.Grid ? selectedIconColor : iconColor}/>
                 </Button>
 
                 <Button
@@ -70,7 +67,7 @@ class ViewToggleButtons extends React.Component<Props, State> {
                     <FontelloIcon
                         name="list"
                         size={iconSize}
-                        color={viewOption === ViewOption.List ? selectedIconColor : iconColor}/>
+                        color={selectedOption === ViewOption.List ? selectedIconColor : iconColor}/>
                 </Button>
             </View>
         )
@@ -79,7 +76,6 @@ class ViewToggleButtons extends React.Component<Props, State> {
     toggleButtonPressed(viewOption: ViewOption) {
         const {onToggleOptionSelected} = this.props;
         onToggleOptionSelected && onToggleOptionSelected(viewOption);
-        this.setState({viewOption});
     }
 }
 
