@@ -13,7 +13,7 @@ import Metrics from '../../variables/Metrics';
 
 interface Props {
     TouchableComponent?: React.ElementType<TouchableNativeFeedback | TouchableOpacity>;
-    containerStyle?: ViewStyle,
+    containerStyle?: ViewStyle | ViewStyle[],
     buttonStyle?: ViewStyle,
     disabledStyle?: ViewStyle,
     disabled?: boolean,

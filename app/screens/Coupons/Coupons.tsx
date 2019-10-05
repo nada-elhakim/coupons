@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import * as React from 'react';
 import SearchBar from "../../theme/components/Searchbar/Searchbar";
 import {View, StyleSheet} from "react-native";
 import ViewToggleButtons, {ViewOption} from "../../components/ViewToggleButtons";
-import {Coupon, CouponsMock} from "../../mock/coupons";
+import {CouponsMock} from "../../mock/coupons";
 import CouponList from "../../components/CouponList";
 import Dropdown, {DropdownOption} from "../../theme/components/Dropdown/Dropdown";
 import Metrics from "../../theme/variables/Metrics";
@@ -10,7 +10,7 @@ import Colors from "../../theme/variables/Colors";
 import {sortOptions, SortOptionValue} from "../../mock/coupon-sort-options";
 import CouponService from "../../services/CouponService";
 
-class Coupons extends Component {
+class Coupons extends React.Component {
     couponService = new CouponService();
 
     state = {

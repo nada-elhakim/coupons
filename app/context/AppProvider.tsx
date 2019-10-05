@@ -11,7 +11,7 @@ interface State {
     favoriteCouponsCopy: Coupon[];
 }
 
-class AppProvider extends React.Component<any, State> {
+class AppProvider extends React.Component<null, State> {
     couponService = new CouponService();
 
     state = {
@@ -31,7 +31,7 @@ class AppProvider extends React.Component<any, State> {
     }
 
     addCouponToFavorites(coupon: Coupon) {
-        const favorites = this.state.favoriteCoupons || [];
+        const favorites = this.state.favoriteCoupons as Coupon[];
         if (favorites.findIndex(item => item.id === coupon.id) > -1) {
             Toast.show({
                 text: `${coupon.title} exits in favorites`,

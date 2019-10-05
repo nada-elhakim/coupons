@@ -32,7 +32,8 @@ class CouponCard extends React.Component<Props> {
             }}>
                 <View style={[
                     styles.container,
-                    styles.gridContainer
+                    styles.gridContainer,
+                    viewOption === ViewOption.Grid9 && styles.grid9Container
                 ]}>
                     <Button
                         onPress={this.context.addCouponToFavorites.bind(this, coupon)}
@@ -53,7 +54,7 @@ class CouponCard extends React.Component<Props> {
                     <Button
                         onPress={this.context.captureCoupon.bind(this, coupon)}
                         transparent
-                        containerStyle={{position: 'absolute', right: 16, bottom: 4}}>
+                        containerStyle={styles.gridCouponButton}>
                         <FontelloIcon name="coupon" color={Colors.primary} size={24}/>
                     </Button>
                 </View>
@@ -109,6 +110,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: Metrics.defaultMargin / 3
     },
+    grid9Container: {
+        padding: Metrics.defaultPadding / 2,
+        paddingBottom: 50
+    },
     listContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -119,5 +124,14 @@ const styles = StyleSheet.create({
         color: Colors.success,
         fontWeight: 'bold',
         fontSize: 16
+    },
+    gridCouponButton: {
+        position: 'absolute',
+        right: 16,
+        bottom: 4
+    },
+    grid9CouponButton: {
+        position: 'relative',
+        alignSelf: 'flex-end'
     }
 });
