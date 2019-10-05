@@ -8,8 +8,11 @@ import Dropdown, {DropdownOption} from "../../theme/components/Dropdown/Dropdown
 import Metrics from "../../theme/variables/Metrics";
 import Colors from "../../theme/variables/Colors";
 import {sortOptions, SortOptionValue} from "../../mock/coupon-sort-options";
+import CouponService from "../../services/CouponService";
 
 class Coupons extends Component {
+    couponService = new CouponService();
+
     state = {
         currentViewOption: ViewOption.Grid,
         coupons: [...CouponsMock]
@@ -29,7 +32,10 @@ class Coupons extends Component {
                         onOptionSelected={this.onDropdownOptionSelected.bind(this)}/>
                     <ViewToggleButtons onToggleOptionSelected={this.onToggleOptionSelected.bind(this)} />
                 </View>
-                <CouponList coupons={coupons} viewOption={this.state.currentViewOption}/>
+                <CouponList
+                    noResultsMessage="No coupons"
+                    coupons={coupons}
+                    viewOption={this.state.currentViewOption}/>
             </>
         )
     }
@@ -39,36 +45,17 @@ class Coupons extends Component {
     }
 
     onDropdownOptionSelected(option: DropdownOption) {
-        console.log('option selected', option);
         this.sortCoupon(option.value)
     }
 
     searchCoupons(value: string) {
-        if (value.length > 2 && value !== '') {
-            const filtered = this.state.coupons.filter(coupon => coupon.title.toLowerCase().indexOf(value.toLowerCase()) > -1);
-            this.setState({coupons: filtered});
-        } else {
-            this.setState({coupons: CouponsMock});
-        }
+        const filtered = this.couponService.searchCoupons(value, this.state.coupons);
+        console.log('filtered', filtered);
+        this.setState({coupons: filtered});
     }
 
     sortCoupon(optionValue: SortOptionValue) {
-        let coupons = this.state.coupons;
-        switch (optionValue) {
-            case SortOptionValue.ALPHABETICAL:
-                coupons = coupons.sort((a: Coupon, b: Coupon) => a.title.localeCompare(b.title));
-                break;
-            case SortOptionValue.POUNDS_CAPTURED:
-                coupons = coupons.sort((a: Coupon, b: Coupon) => b.value - a.value);
-                break;
-            case SortOptionValue.DATE:
-                coupons = coupons.sort((a: Coupon, b: Coupon) => b.date - a.date);
-                break;
-            default:
-                coupons = CouponsMock;
-        }
-
-        this.setState({coupons})
+        this.setState({coupons: this.couponService.sortCoupon(optionValue,  this.state.coupons)});
     }
 }
 

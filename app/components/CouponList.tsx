@@ -4,21 +4,24 @@ import CouponCard from "./CouponCard";
 import {Coupon} from "../mock/coupons";
 import {ViewOption} from "./ViewToggleButtons";
 import Metrics from "../theme/variables/Metrics";
+import NoResultCard from "./NoResultCard";
 
 interface Props {
     coupons: Coupon[];
     viewOption: ViewOption;
+    noResultsMessage?: string;
 }
 
 class CouponList extends React.Component<Props> {
     render() {
-        const {coupons, viewOption} = this.props;
+        const {coupons, viewOption, noResultsMessage} = this.props;
         return (
             <FlatList
                 contentContainerStyle={{
                     paddingHorizontal: Metrics.defaultPadding,
                     marginHorizontal: viewOption === ViewOption.List ? 0 : -5
                 }}
+                ListEmptyComponent={<NoResultCard message={noResultsMessage}/>}
                 key={viewOption}
                 numColumns={this.getNumberOfColumns()}
                 data={coupons}

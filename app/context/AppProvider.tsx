@@ -16,8 +16,8 @@ class AppProvider extends React.Component<any, State> {
 
     state = {
         capturedCoupons: 0,
-        favoriteCoupons: null,
-        favoriteCouponsCopy: null
+        favoriteCoupons: [],
+        favoriteCouponsCopy: []
     };
 
     captureCoupon(coupon: Coupon) {
@@ -54,13 +54,12 @@ class AppProvider extends React.Component<any, State> {
 
     searchFavorites(value: string) {
         const coupons = [...this.state.favoriteCouponsCopy];
-        console.log(this.couponService.searchCoupons(value, coupons));
-        this.setState({favoriteCoupons: this.couponService.searchCoupons(value, coupons)})
+        this.setState({favoriteCoupons: this.couponService.searchCoupons(value, coupons, coupons)})
     }
 
     sortFavorites(optionValue: SortOptionValue) {
         const coupons = [...this.state.favoriteCouponsCopy];
-        this.setState({favoriteCoupons: this.couponService.sortCoupon(optionValue,  coupons)})
+        this.setState({favoriteCoupons: this.couponService.sortCoupon(optionValue,  coupons, coupons)})
     }
 
     render() {

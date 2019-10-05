@@ -49,7 +49,6 @@ class SearchBar extends React.Component<Props, State> {
     };
 
     onBlur = () => {
-        this.setState({isFocused: false});
         this.props.onBlur && this.props.onBlur();
     };
 
@@ -59,7 +58,7 @@ class SearchBar extends React.Component<Props, State> {
     };
 
     render() {
-        const {isFocused} = this.state;
+        const {isEmpty} = this.state;
         return (
             <ScrollView
                 scrollEnabled={false}
@@ -74,7 +73,7 @@ class SearchBar extends React.Component<Props, State> {
                         this.input = ref
                     }}/>
                 {
-                    !isFocused &&
+                    isEmpty &&
                     <TouchableOpacity onPress={this.focus} style={styles.placeholderContainer}>
                         <Ionicon name="ios-search" size={18}/>
                         <Text>Search</Text>

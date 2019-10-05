@@ -26,7 +26,7 @@ class Favorites extends React.Component<any, State> {
         return(
             <>
                 <View style={styles.searchBarContainer}>
-                    <SearchBar onChangeText={this.context.searchFavorites.bind(this)}/>
+                    <SearchBar onChangeText={(value) => this.context.searchFavorites(value)}/>
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center', paddingHorizontal: Metrics.defaultPadding}}>
                     <Dropdown
@@ -35,13 +35,10 @@ class Favorites extends React.Component<any, State> {
                         onOptionSelected={this.onDropdownOptionSelected.bind(this)}/>
                     <ViewToggleButtons onToggleOptionSelected={this.onToggleOptionSelected.bind(this)} />
                 </View>
-                {
-                    (!coupons || coupons.length === 0) ?
-                        <NoResultCard message="No coupons in favorites"/> :
-                        <CouponList
-                            coupons={coupons}
-                            viewOption={this.state.currentViewOption}/>
-                }
+                <CouponList
+                    noResultsMessage="No coupons in favorites"
+                    coupons={coupons}
+                    viewOption={this.state.currentViewOption}/>
             </>
         )
     }
