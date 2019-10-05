@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {TextInput, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {TextInput, View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import {SceneView} from "react-navigation";
 
 interface Props {
     onClear?: any;
@@ -34,7 +35,6 @@ class SearchBar extends React.Component<Props, State> {
 
     blur = () => {
         this.input.blur();
-        this.setState({isFocused: false})
     };
 
     clear = () => {
@@ -44,12 +44,13 @@ class SearchBar extends React.Component<Props, State> {
     };
 
     onFocus = () => {
-        this.props.onFocus();
+        this.props.onFocus && this.props.onFocus();
         this.setState({ isEmpty: this.props.value === '' });
     };
 
     onBlur = () => {
-        this.props.onBlur();
+        this.setState({isFocused: false});
+        this.props.onBlur && this.props.onBlur();
     };
 
     onChangeText = text => {
@@ -60,13 +61,18 @@ class SearchBar extends React.Component<Props, State> {
     render() {
         const {isFocused} = this.state;
         return (
-            <View style={styles.inputContainer}>
+            <ScrollView
+                scrollEnabled={false}
+                keyboardShouldPersistTaps="never"
+                contentContainerStyle={styles.inputContainer}>
                 <TextInput
+                    onBlur={this.onBlur}
+                    onFocus={this.onFocus}
                     onChangeText={this.onChangeText}
                     clearButtonMode={"while-editing"} style={styles.input}
                     ref={ref => {
-                    this.input = ref
-                }}/>
+                        this.input = ref
+                    }}/>
                 {
                     !isFocused &&
                     <TouchableOpacity onPress={this.focus} style={styles.placeholderContainer}>
@@ -74,7 +80,7 @@ class SearchBar extends React.Component<Props, State> {
                         <Text>Search</Text>
                     </TouchableOpacity>
                 }
-            </View>
+            </ScrollView>
         );
     }
 }
