@@ -18,8 +18,7 @@ class CouponList extends React.Component<Props> {
         return (
             <FlatList
                 contentContainerStyle={{
-                    paddingHorizontal: Metrics.defaultPadding,
-                    marginHorizontal: viewOption === ViewOption.List ? 0 : -5
+                    paddingHorizontal: viewOption === ViewOption.List ? Metrics.defaultPadding  : Metrics.defaultPadding -5
                 }}
                 ListEmptyComponent={<NoResultCard message={noResultsMessage}/>}
                 key={viewOption}
